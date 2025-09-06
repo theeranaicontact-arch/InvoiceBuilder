@@ -133,11 +133,10 @@
     height: 100vh !important;
     z-index: 9999 !important;
     background: white !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
+    display: block !important;
+    overflow: auto !important;
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 20px !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
@@ -145,11 +144,12 @@
   
   .thermal-receipt {
     font-size: 14px !important;
-    max-width: none !important;
+    max-width: 600px !important;
     width: 100% !important;
-    margin: 0 !important;
+    margin: 0 auto !important;
     padding: 20px !important;
     transform: none !important;
+    display: block !important;
   }
 }
 

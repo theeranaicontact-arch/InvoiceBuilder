@@ -46,21 +46,22 @@ export default function ReceiptPage() {
       receiptContainer.style.height = '100vh';
       receiptContainer.style.zIndex = '9999';
       receiptContainer.style.background = 'white';
-      receiptContainer.style.display = 'flex';
-      receiptContainer.style.justifyContent = 'center';
-      receiptContainer.style.alignItems = 'center';
+      receiptContainer.style.display = 'block';
+      receiptContainer.style.overflow = 'auto';
       receiptContainer.style.border = 'none';
       receiptContainer.style.borderRadius = '0';
       receiptContainer.style.boxShadow = 'none';
       receiptContainer.style.margin = '0';
-      receiptContainer.style.padding = '0';
+      receiptContainer.style.padding = '20px';
       
       const thermalReceipt = receiptContainer.querySelector('.thermal-receipt') as HTMLElement;
       if (thermalReceipt) {
         thermalReceipt.style.transform = 'none';
         thermalReceipt.style.padding = '20px';
         thermalReceipt.style.width = '100%';
-        thermalReceipt.style.maxWidth = 'none';
+        thermalReceipt.style.maxWidth = '600px';
+        thermalReceipt.style.margin = '0 auto';
+        thermalReceipt.style.display = 'block';
       }
     }
     
