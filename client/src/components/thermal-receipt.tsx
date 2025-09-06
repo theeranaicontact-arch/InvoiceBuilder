@@ -95,7 +95,7 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
           <div className="text-center font-bold mb-3">รายการสินค้า/บริการ</div>
           <div className="receipt-item font-bold mb-2 border-b border-gray-300">
             <span>รายการ</span>
-            <span className="text-center">จำนวน</span>
+            <span className="text-right">จำนวน</span>
             <span className="text-right">มูลค่า (บาท)</span>
           </div>
           
@@ -103,7 +103,7 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
             <div key={item.ID} data-testid={`item-${index}`}>
               <div className="receipt-item">
                 <span data-testid={`item-name-${index}`}>{item.Item}</span>
-                <span className="text-center" data-testid={`item-amount-${index}`}>
+                <span className="text-right" data-testid={`item-amount-${index}`}>
                   {item.Amount}
                 </span>
                 <span className="text-right" data-testid={`item-total-${index}`}>
