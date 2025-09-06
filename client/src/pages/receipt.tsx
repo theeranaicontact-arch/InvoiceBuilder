@@ -24,7 +24,21 @@ export default function ReceiptPage() {
   });
 
   const handlePrint = () => {
+    // Hide all buttons and controls before printing
+    const noPrintElements = document.querySelectorAll('.no-print, button');
+    noPrintElements.forEach(el => {
+      (el as HTMLElement).style.display = 'none';
+    });
+    
+    // Print
     window.print();
+    
+    // Show buttons again after printing (when user closes print dialog)
+    setTimeout(() => {
+      noPrintElements.forEach(el => {
+        (el as HTMLElement).style.display = '';
+      });
+    }, 1000);
   };
 
   const handleNewSearch = () => {

@@ -114,27 +114,14 @@
 
 /* Print Styles */
 @media print {
-  /* Hide everything first */
   body * {
-    visibility: hidden !important;
+    visibility: hidden;
   }
   
-  /* Show only receipt container and its contents */
-  .receipt-container,
-  .receipt-container * {
-    visibility: visible !important;
+  .receipt-container, .receipt-container * {
+    visibility: visible;
   }
   
-  /* Hide all buttons and controls */
-  .no-print,
-  button,
-  .no-print *,
-  button * {
-    display: none !important;
-    visibility: hidden !important;
-  }
-  
-  /* Make receipt container full screen */
   .receipt-container {
     position: fixed !important;
     left: 0 !important;
@@ -166,11 +153,6 @@
   body {
     margin: 0 !important;
     padding: 0 !important;
-  }
-  
-  /* Ensure all containers are shown */
-  .container {
-    visibility: visible !important;
   }
 }
 
