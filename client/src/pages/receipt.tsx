@@ -37,7 +37,7 @@ export default function ReceiptPage() {
     if (receiptContainer) {
       body.style.margin = '0';
       body.style.padding = '0';
-      body.style.overflow = 'hidden';
+      body.style.overflow = 'auto';
       
       receiptContainer.style.position = 'fixed';
       receiptContainer.style.top = '0';
@@ -57,8 +57,8 @@ export default function ReceiptPage() {
       
       const thermalReceipt = receiptContainer.querySelector('.thermal-receipt') as HTMLElement;
       if (thermalReceipt) {
-        thermalReceipt.style.transform = 'scale(1.5)';
-        thermalReceipt.style.padding = '40px';
+        thermalReceipt.style.transform = 'none';
+        thermalReceipt.style.padding = '20px';
         thermalReceipt.style.width = '100%';
         thermalReceipt.style.maxWidth = 'none';
       }
