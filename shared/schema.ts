@@ -11,8 +11,8 @@ export const receiptInfoSchema = z.object({
   BuyerTaxId: z.union([z.string(), z.number()]).transform(val => String(val)),
   BuyerOrgType: z.string(),
   RefCodeInfoItem: z.string(),
-  CreateDate: z.string(),
-  UpdateDate: z.string(),
+  CreateDate: z.union([z.string(), z.number()]).transform(val => String(val)),
+  UpdateDate: z.union([z.string(), z.number()]).transform(val => String(val)),
   RecordId: z.string(),
 });
 
