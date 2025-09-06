@@ -36,10 +36,10 @@ export default function SearchPage() {
               <Receipt className="h-12 w-12 text-primary" />
             </div>
             <h1 className="text-2xl font-bold text-foreground mb-2">
-              ระบบค้นหาใบเสร็จรับเงิน
+              ระบบสืบค้นใบเสร็จรับเงิน
             </h1>
             <p className="text-muted-foreground">
-              กรอกเลขที่เอกสารเพื่อค้นหาใบเสร็จ
+              โปรดระบุหมายเลขอ้างอิงเอกสารเพื่อดำเนินการสืบค้นใบเสร็จ
             </p>
           </div>
 
@@ -50,13 +50,13 @@ export default function SearchPage() {
                 name="refCode"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>เลขที่เอกสาร (RefCodeInfoItem)</FormLabel>
+                    <FormLabel>หมายเลขอ้างอิงเอกสาร</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="เช่น INV-2025-0010"
+                        placeholder="ตัวอย่าง: INV-2025-0010"
                         {...field}
                         data-testid="input-refcode"
-                        className="font-mono"
+                        className="font-mono text-center"
                       />
                     </FormControl>
                     <FormMessage />
@@ -66,22 +66,22 @@ export default function SearchPage() {
 
               <Button 
                 type="submit" 
-                className="w-full"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3"
                 data-testid="button-search"
               >
                 <Search className="w-4 h-4 mr-2" />
-                ค้นหาใบเสร็จ
+                สืบค้นใบเสร็จรับเงิน
               </Button>
             </form>
           </Form>
 
           <div className="mt-6 p-4 bg-muted rounded-md">
-            <h3 className="font-medium text-foreground mb-2">ตัวอย่างเลขที่เอกสาร:</h3>
-            <ul className="text-sm text-muted-foreground space-y-1">
-              <li>• INV-2025-0010</li>
-              <li>• INV-2025-0011</li>
-              <li>• REC-2025-0001</li>
-            </ul>
+            <h3 className="font-medium text-foreground mb-2 text-center">ตัวอย่างหมายเลขอ้างอิงเอกสาร:</h3>
+            <div className="text-sm text-muted-foreground space-y-1 text-center">
+              <div>• INV-2025-0010</div>
+              <div>• INV-2025-0011</div>
+              <div>• REC-2025-0001</div>
+            </div>
           </div>
         </CardContent>
       </Card>

@@ -57,7 +57,7 @@ export default function ReceiptPage() {
         <Alert variant="destructive" className="mb-4">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
-            {error instanceof Error ? error.message : "ไม่พบข้อมูลใบเสร็จที่ต้องการ"}
+            {error instanceof Error ? error.message : "ไม่พบข้อมูลใบเสร็จตามหมายเลขอ้างอิงที่ระบุ"}
           </AlertDescription>
         </Alert>
         <Button 
@@ -67,7 +67,7 @@ export default function ReceiptPage() {
           data-testid="button-back-to-search"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          กลับไปค้นหาใหม่
+          กลับสู่หน้าสืบค้น
         </Button>
       </div>
     );
@@ -79,7 +79,7 @@ export default function ReceiptPage() {
         <Alert>
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
-            ไม่พบข้อมูลใบเสร็จ
+            ไม่พบข้อมูลใบเสร็จในระบบ
           </AlertDescription>
         </Alert>
         <Button 
@@ -89,7 +89,7 @@ export default function ReceiptPage() {
           data-testid="button-back-to-search"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          กลับไปค้นหาใหม่
+          กลับสู่หน้าสืบค้น
         </Button>
       </div>
     );
@@ -101,18 +101,20 @@ export default function ReceiptPage() {
       <div className="no-print mb-6 flex justify-center space-x-4">
         <Button 
           onClick={handlePrint}
+          className="bg-green-600 hover:bg-green-700 text-white"
           data-testid="button-print"
         >
           <Printer className="w-4 h-4 mr-2" />
-          พิมพ์ใบเสร็จ
+          พิมพ์ใบเสร็จรับเงิน
         </Button>
         <Button 
           onClick={handleNewSearch}
           variant="outline"
+          className="border-blue-600 text-blue-600 hover:bg-blue-50"
           data-testid="button-new-search"
         >
           <Search className="w-4 h-4 mr-2" />
-          ค้นหาใหม่
+          สืบค้นใหม่
         </Button>
       </div>
 

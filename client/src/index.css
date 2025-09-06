@@ -97,7 +97,8 @@
   font-family: var(--font-mono);
   background: white;
   color: black;
-  line-height: 1.2;
+  line-height: 1.4;
+  padding: 20px;
 }
 
 .dotted-line {
