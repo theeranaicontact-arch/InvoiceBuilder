@@ -24,21 +24,50 @@ export default function ReceiptPage() {
   });
 
   const handlePrint = () => {
-    // Hide all buttons and controls before printing
+    // Hide all buttons and controls permanently
     const noPrintElements = document.querySelectorAll('.no-print, button');
     noPrintElements.forEach(el => {
       (el as HTMLElement).style.display = 'none';
     });
     
-    // Print
-    window.print();
+    // Make receipt container full screen immediately
+    const receiptContainer = document.querySelector('.receipt-container') as HTMLElement;
+    const body = document.body;
     
-    // Show buttons again after printing (when user closes print dialog)
+    if (receiptContainer) {
+      body.style.margin = '0';
+      body.style.padding = '0';
+      body.style.overflow = 'hidden';
+      
+      receiptContainer.style.position = 'fixed';
+      receiptContainer.style.top = '0';
+      receiptContainer.style.left = '0';
+      receiptContainer.style.width = '100vw';
+      receiptContainer.style.height = '100vh';
+      receiptContainer.style.zIndex = '9999';
+      receiptContainer.style.background = 'white';
+      receiptContainer.style.display = 'flex';
+      receiptContainer.style.justifyContent = 'center';
+      receiptContainer.style.alignItems = 'center';
+      receiptContainer.style.border = 'none';
+      receiptContainer.style.borderRadius = '0';
+      receiptContainer.style.boxShadow = 'none';
+      receiptContainer.style.margin = '0';
+      receiptContainer.style.padding = '0';
+      
+      const thermalReceipt = receiptContainer.querySelector('.thermal-receipt') as HTMLElement;
+      if (thermalReceipt) {
+        thermalReceipt.style.transform = 'scale(1.5)';
+        thermalReceipt.style.padding = '40px';
+        thermalReceipt.style.width = '100%';
+        thermalReceipt.style.maxWidth = 'none';
+      }
+    }
+    
+    // Print after styling is applied
     setTimeout(() => {
-      noPrintElements.forEach(el => {
-        (el as HTMLElement).style.display = '';
-      });
-    }, 1000);
+      window.print();
+    }, 100);
   };
 
   const handleNewSearch = () => {
