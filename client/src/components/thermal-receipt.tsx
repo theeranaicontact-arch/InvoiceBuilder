@@ -47,15 +47,15 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
   const totals = calculateTotals(items);
 
   return (
-    <div className="receipt-container bg-white mx-auto max-w-lg border border-gray-200 shadow-2xl rounded-xl overflow-hidden">
-      <div className="thermal-receipt p-6 text-sm font-sans">
+    <div className="receipt-container bg-white mx-auto max-w-md border-2 border-gray-400 shadow-xl rounded-lg overflow-hidden">
+      <div className="thermal-receipt p-4 text-xs font-mono">
         {/* Receipt Header */}
-        <div className="text-center mb-6 pb-4">
-          <div className="text-xl font-bold mb-3 text-gray-800" data-testid="text-seller-name">
+        <div className="text-center mb-4 border-b border-dashed border-gray-400 pb-3">
+          <div className="text-lg font-bold mb-2" data-testid="text-seller-name">
             {info.NameSeller}
           </div>
-          <div className="mb-2 text-gray-600" data-testid="text-seller-address">{info.SellerAddress}</div>
-          <div className="text-sm text-gray-500" data-testid="text-seller-taxid">
+          <div className="mb-1" data-testid="text-seller-address">{info.SellerAddress}</div>
+          <div data-testid="text-seller-taxid">
             เลขประจำตัวผู้เสียภาษี: {info.SellerTaxId}
           </div>
         </div>
@@ -63,14 +63,14 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
         <div className="dotted-line"></div>
 
         {/* Receipt Info */}
-        <div className="mb-6 bg-gray-50 p-4 rounded-lg">
-          <div className="text-lg font-bold mb-3 text-center text-blue-700">ใบเสร็จรับเงิน</div>
-          <div className="receipt-item mb-2">
-            <span className="font-medium">หมายเลขอ้างอิง:</span>
-            <span className="font-bold text-blue-600" data-testid="text-ref-code">{info.RefCodeInfoItem}</span>
+        <div className="mb-4 text-center">
+          <div className="text-base font-bold mb-2">ใบเสร็จรับเงิน</div>
+          <div className="receipt-item mb-1">
+            <span>หมายเลขอ้างอิง:</span>
+            <span className="font-bold" data-testid="text-ref-code">{info.RefCodeInfoItem}</span>
           </div>
           <div className="receipt-item">
-            <span className="font-medium">วันที่ออกใบเสร็จ:</span>
+            <span>วันที่ออกใบเสร็จ:</span>
             <span data-testid="text-create-date">{formatDate(info.CreateDate)}</span>
           </div>
         </div>
@@ -78,13 +78,13 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
         <div className="dotted-line"></div>
 
         {/* Buyer Info */}
-        <div className="mb-6 bg-blue-50 p-4 rounded-lg">
-          <div className="font-bold mb-3 text-center text-blue-700">ข้อมูลผู้ชำระเงิน</div>
-          <div className="text-center mb-2">
-            <div className="font-semibold text-lg" data-testid="text-buyer-name">{info.BuyerName}</div>
+        <div className="mb-4 border-b border-dashed border-gray-400 pb-3">
+          <div className="font-bold mb-2 text-center">ข้อมูลผู้ชำระเงิน</div>
+          <div className="text-center mb-1">
+            <div className="font-semibold" data-testid="text-buyer-name">{info.BuyerName}</div>
           </div>
-          <div className="text-center mb-2 text-gray-600" data-testid="text-buyer-address">{info.BuyerAddress}</div>
-          <div className="text-center text-sm text-gray-500" data-testid="text-buyer-taxid">
+          <div className="text-center mb-1" data-testid="text-buyer-address">{info.BuyerAddress}</div>
+          <div className="text-center mb-1" data-testid="text-buyer-taxid">
             เลขประจำตัวผู้เสียภาษี: {info.BuyerTaxId} ({info.BuyerOrgType})
           </div>
         </div>
@@ -92,9 +92,9 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
         <div className="dotted-line"></div>
 
         {/* Items List */}
-        <div className="mb-6">
-          <div className="text-center font-bold mb-4 text-green-700 text-lg">รายการสินค้า/บริการ</div>
-          <div className="receipt-item font-bold mb-3 pb-2 border-b-2 border-green-600 text-green-700">
+        <div className="mb-4">
+          <div className="text-center font-bold mb-3">รายการสินค้า/บริการ</div>
+          <div className="receipt-item font-bold mb-2 border-b border-gray-300">
             <span>รายการ</span>
             <span style={{textAlign: 'center', flex: '0 0 60px'}}>จำนวน</span>
             <span className="text-right">มูลค่า (บาท)</span>
@@ -127,20 +127,20 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
         <div className="dotted-line"></div>
 
         {/* Totals */}
-        <div className="mb-6 bg-green-50 p-4 rounded-lg">
-          <div className="receipt-item mb-2">
-            <span className="font-medium">มูลค่าสินค้า/บริการรวม:</span>
-            <span className="font-semibold" data-testid="text-subtotal">
+        <div className="mb-4 border-t border-dashed border-gray-400 pt-3">
+          <div className="receipt-item mb-1">
+            <span>มูลค่าสินค้า/บริการรวม:</span>
+            <span data-testid="text-subtotal">
               {formatCurrency(totals.subtotal)} บาท
             </span>
           </div>
-          <div className="receipt-item mb-3 text-red-600">
-            <span className="font-medium">หักภาษี ณ ที่จ่าย:</span>
-            <span className="font-semibold" data-testid="text-total-withholding">
+          <div className="receipt-item mb-1 text-red-600">
+            <span>หักภาษี ณ ที่จ่าย:</span>
+            <span data-testid="text-total-withholding">
               -{formatCurrency(totals.totalWithholding)} บาท
             </span>
           </div>
-          <div className="receipt-item font-bold text-xl bg-green-600 text-white p-3 rounded-lg">
+          <div className="receipt-item font-bold text-lg border-t border-gray-300 pt-2 mt-2">
             <span>จำนวนเงินสุทธิ:</span>
             <span data-testid="text-grand-total">
               {formatCurrency(totals.grandTotal)} บาท
@@ -151,20 +151,19 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
         <div className="dotted-line"></div>
 
         {/* Barcode */}
-        <div className="text-center mb-6 bg-gray-100 p-4 rounded-lg">
-          <div className="text-sm text-gray-600 mb-2 font-medium">รหัสอ้างอิงใบเสร็จ</div>
+        <div className="text-center mb-3">
           <PDF417Barcode 
             data={`${info.RefCodeInfoItem}|${info.BuyerTaxId}|${totals.grandTotal}`}
-            width={280}
-            height={90}
+            width={250}
+            height={80}
           />
         </div>
 
         {/* Footer */}
-        <div className="text-center bg-gray-800 text-white p-4 rounded-lg">
-          <div className="mb-2 text-lg font-semibold">ขอบพระคุณที่ใช้บริการ</div>
-          <div className="mb-2 text-yellow-300 font-bold">*** ใบเสร็จรับเงิน ***</div>
-          <div className="text-sm text-gray-300" data-testid="text-update-date">
+        <div className="text-center text-xs border-t border-dashed border-gray-400 pt-3">
+          <div className="mb-2 font-semibold">ขอบพระคุณที่ใช้บริการ</div>
+          <div className="mb-1">*** ใบเสร็จรับเงิน ***</div>
+          <div data-testid="text-update-date">
             ปรับปรุงข้อมูลล่าสุด: {formatDate(info.UpdateDate)}
           </div>
         </div>
