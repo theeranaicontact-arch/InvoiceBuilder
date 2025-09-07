@@ -157,6 +157,15 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
           />
         </div>
 
+        {/* Signature Section */}
+        <div className="mb-4 border-t border-dashed border-gray-400 pt-3">
+          <div className="text-center mb-3">
+            <div className="mb-2 text-sm font-semibold">ลงชื่อผู้รับเงิน</div>
+            <div className="border-b border-gray-400 mx-8 mb-2" style={{height: '40px'}}></div>
+            <div className="text-xs">( ........................................ )</div>
+          </div>
+        </div>
+
         {/* Footer */}
         <div className="text-center text-xs border-t border-dashed border-gray-400 pt-3">
           <div className="mb-2 font-semibold">ขอบพระคุณที่ใช้บริการ</div>
