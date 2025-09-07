@@ -94,11 +94,11 @@
 
 /* Thermal Receipt Styling */
 .thermal-receipt {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   background: white;
   color: black;
-  line-height: 1.4;
-  padding: 20px;
+  line-height: 1.6;
+  padding: 24px;
 }
 
 .dotted-line {
