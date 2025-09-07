@@ -94,7 +94,7 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
           <div className="text-center font-bold mb-3">รายการสินค้า/บริการ</div>
           <div className="receipt-item font-bold mb-2 border-b border-gray-300">
             <span>รายการ</span>
-            <span style={{textAlign: 'center', flex: '0 0 60px'}}>จำนวน</span>
+            <span style={{textAlign: 'center', flex: '0 0 60px'}}>หน่วย</span>
             <span className="text-right">มูลค่า (บาท)</span>
           </div>
           
