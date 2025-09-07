@@ -53,7 +53,7 @@ export default function SearchPage() {
                     <FormLabel>หมายเลขอ้างอิงเอกสาร</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="ตัวอย่าง: INV-2025-0010"
+                        placeholder="โปรดป้อนหมายเลขอ้างอิง"
                         {...field}
                         data-testid="input-refcode"
                         className="font-mono text-center"
@@ -80,7 +80,7 @@ export default function SearchPage() {
             <div className="text-sm text-muted-foreground space-y-1 text-center">
               <div>• INV-2025-0010</div>
               <div>• INV-2025-0011</div>
-              <div>• REC-2025-0001</div>
+              <div>• INV-2025-0001</div>
             </div>
           </div>
         </CardContent>

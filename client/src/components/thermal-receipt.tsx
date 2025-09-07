@@ -89,25 +89,23 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
 
         <div className="dotted-line"></div>
 
-        {/* Items List */}
         <div className="mb-4">
           <div className="text-center font-bold mb-3">รายการสินค้า/บริการ</div>
           <div className="receipt-item font-bold mb-2 border-b border-gray-300">
             <span>รายการ</span>
-            <span style={{textAlign: 'center', flex: '0 0 80px'}}>จำนวน</span>
             <span className="text-right">มูลค่า (บาท)</span>
           </div>
-          
+
           {items.map((item, index) => (
             <div key={item.ID} data-testid={`item-${index}`}>
               <div className="receipt-item">
-                <span data-testid={`item-name-${index}`}>{item.Item}</span>
-                <span style={{textAlign: 'center', flex: '0 0 80px'}} data-testid={`item-amount-${index}`}>
-                  {item.Amount}
+                <span data-testid={`item-name-${index}`}>
+                  {item.Item} ×{item.Amount}@{formatCurrency(item.Price)}
                 </span>
                 <span className="text-right" data-testid={`item-total-${index}`}>
                   {formatCurrency(item.Amount * item.Price)}
                 </span>
+                
               </div>
               {item.WithholdingTax > 0 && (
                 <div className="receipt-item text-xs text-red-600">
