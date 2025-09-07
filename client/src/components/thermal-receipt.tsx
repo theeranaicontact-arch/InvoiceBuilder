@@ -1,4 +1,5 @@
 import { type ReceiptData } from "@shared/schema";
+import PDF417Barcode from "./pdf417-barcode";
 
 interface ThermalReceiptProps {
   data: ReceiptData;
@@ -148,6 +149,15 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
         </div>
 
         <div className="dotted-line"></div>
+
+        {/* Barcode */}
+        <div className="text-center mb-3">
+          <PDF417Barcode 
+            data={`${info.RefCodeInfoItem}|${info.BuyerTaxId}|${totals.grandTotal}`}
+            width={250}
+            height={80}
+          />
+        </div>
 
         {/* Footer */}
         <div className="text-center text-xs border-t border-dashed border-gray-400 pt-3">
