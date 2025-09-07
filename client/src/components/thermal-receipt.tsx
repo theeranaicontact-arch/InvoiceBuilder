@@ -94,7 +94,7 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
           <div className="text-center font-bold mb-3">รายการสินค้า/บริการ</div>
           <div className="receipt-item font-bold mb-2 border-b border-gray-300">
             <span>รายการ</span>
-            <span style={{textAlign: 'center', flex: '0 0 60px'}}>หน่วย</span>
+            <span style={{textAlign: 'center', flex: '0 0 80px', marginLeft: '10px'}}>จำนวน</span>
             <span className="text-right">มูลค่า (บาท)</span>
           </div>
           
@@ -102,7 +102,7 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
             <div key={item.ID} data-testid={`item-${index}`}>
               <div className="receipt-item">
                 <span data-testid={`item-name-${index}`}>{item.Item}</span>
-                <span style={{textAlign: 'center', flex: '0 0 60px'}} data-testid={`item-amount-${index}`}>
+                <span style={{textAlign: 'center', flex: '0 0 80px', marginLeft: '10px'}} data-testid={`item-amount-${index}`}>
                   {item.Amount}
                 </span>
                 <span className="text-right" data-testid={`item-total-${index}`}>
@@ -148,15 +148,6 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
 
         <div className="dotted-line"></div>
 
-        {/* Barcode */}
-        <div className="text-center mb-3">
-          <PDF417Barcode 
-            data={`${info.RefCodeInfoItem}|${info.BuyerTaxId}|${totals.grandTotal}`}
-            width={250}
-            height={80}
-          />
-        </div>
-
         {/* Signature Section */}
         <div className="mb-4 border-t border-dashed border-gray-400 pt-4">
           <div className="text-center mb-4">
@@ -171,6 +162,15 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
               วันที่ {formatDate(info.CreateDate)}
             </div>
           </div>
+        </div>
+
+        {/* Barcode */}
+        <div className="text-center mb-3">
+          <PDF417Barcode 
+            data={`${info.RefCodeInfoItem}|${info.BuyerTaxId}|${totals.grandTotal}`}
+            width={250}
+            height={80}
+          />
         </div>
 
         {/* Footer */}
