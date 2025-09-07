@@ -29,11 +29,12 @@ export default function PDF417Barcode({ data, width = 300, height = 100 }: PDF41
   }, [data]);
 
   return (
-    <div className="barcode-container text-center my-3">
+    <div className="barcode-container flex flex-col items-center my-4 px-4">
       <canvas 
         ref={canvasRef}
         style={{ maxWidth: width, height: height }}
         data-testid="pdf417-barcode"
+        className="border border-gray-200 rounded-sm shadow-sm"
       />
     </div>
   );
