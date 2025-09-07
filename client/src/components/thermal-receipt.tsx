@@ -55,7 +55,7 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
           </div>
           <div className="mb-1" data-testid="text-seller-address">{info.SellerAddress}</div>
           <div data-testid="text-seller-taxid">
-            หมายเลขประจำตัวผู้เสียภาษีอากร: {info.SellerTaxId}
+            เลขประจำตัวผู้เสียภาษี: {info.SellerTaxId}
           </div>
         </div>
 
@@ -84,7 +84,7 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
           </div>
           <div className="text-center mb-1" data-testid="text-buyer-address">{info.BuyerAddress}</div>
           <div className="text-center mb-1" data-testid="text-buyer-taxid">
-            หมายเลขประจำตัวผู้เสียภาษีอากร: {info.BuyerTaxId} ({info.BuyerOrgType})
+            เลขประจำตัวผู้เสียภาษี: {info.BuyerTaxId} ({info.BuyerOrgType})
           </div>
         </div>
 
@@ -95,7 +95,7 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
           <div className="text-center font-bold mb-3">รายการสินค้า/บริการ</div>
           <div className="receipt-item font-bold mb-2 border-b border-gray-300">
             <span>รายการ</span>
-            <span className="text-right">จำนวน</span>
+            <span style={{textAlign: 'center', flex: '0 0 60px'}}>จำนวน</span>
             <span className="text-right">มูลค่า (บาท)</span>
           </div>
           
@@ -103,7 +103,7 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
             <div key={item.ID} data-testid={`item-${index}`}>
               <div className="receipt-item">
                 <span data-testid={`item-name-${index}`}>{item.Item}</span>
-                <span className="text-right" data-testid={`item-amount-${index}`}>
+                <span style={{textAlign: 'center', flex: '0 0 60px'}} data-testid={`item-amount-${index}`}>
                   {item.Amount}
                 </span>
                 <span className="text-right" data-testid={`item-total-${index}`}>
