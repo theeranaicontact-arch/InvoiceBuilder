@@ -8,9 +8,47 @@ import { ArrowLeft, Printer, Search, AlertCircle } from "lucide-react";
 import { fetchReceiptData } from "@/lib/api";
 import ThermalReceipt from "@/components/thermal-receipt";
 
+/* ---------- SAFE HELPERS ---------- */
+function safeUseLocation() {
+  try {
+    const t = (useLocation && useLocation()) as any;
+    if (Array.isArray(t) && typeof t[1] === "function") {
+      return t as [string, (to: string, replace?: boolean) => void];
+    }
+  } catch {}
+  const pathname =
+    (typeof window !== "undefined" &&
+      window.location &&
+      window.location.pathname) ||
+    "/";
+  const nav = (to: string) => {
+    if (typeof window !== "undefined") window.location.href = to;
+  };
+  return [pathname, nav] as [string, (to: string) => void];
+}
+
+function safeGetRefCode() {
+  // 1) จาก useParams
+  try {
+    const p = (useParams && useParams<{ refCode?: string }>()) as
+      | { refCode?: string }
+      | undefined;
+    if (p?.refCode) return p.refCode;
+  } catch {}
+  // 2) สำรอง: ดึงจาก URL /receipt/:refCode
+  const path =
+    (typeof window !== "undefined" &&
+      window.location &&
+      window.location.pathname) ||
+    "";
+  const m = path.match(/\/receipt\/([^/?#]+)/);
+  return m?.[1];
+}
+/* ---------------------------------- */
+
 export default function ReceiptPage() {
-  const { refCode } = useParams<{ refCode: string }>();
-  const [, setLocation] = useLocation();
+  const [location, navigate] = safeUseLocation();
+  const refCode = safeGetRefCode();
 
   const {
     data: receiptData,
@@ -23,57 +61,39 @@ export default function ReceiptPage() {
     retry: false,
   });
 
-  const handlePrint = () => {
-    // Hide all buttons and controls permanently
-    const noPrintElements = document.querySelectorAll('.no-print, button');
-    noPrintElements.forEach(el => {
-      (el as HTMLElement).style.display = 'none';
-    });
-    
-    // Make receipt container full screen immediately
-    const receiptContainer = document.querySelector('.receipt-container') as HTMLElement;
-    const body = document.body;
-    
-    if (receiptContainer) {
-      body.style.margin = '0';
-      body.style.padding = '0';
-      body.style.overflow = 'auto';
-      
-      receiptContainer.style.position = 'fixed';
-      receiptContainer.style.top = '0';
-      receiptContainer.style.left = '0';
-      receiptContainer.style.width = '100vw';
-      receiptContainer.style.height = '100vh';
-      receiptContainer.style.zIndex = '9999';
-      receiptContainer.style.background = 'white';
-      receiptContainer.style.display = 'block';
-      receiptContainer.style.overflow = 'auto';
-      receiptContainer.style.border = 'none';
-      receiptContainer.style.borderRadius = '0';
-      receiptContainer.style.boxShadow = 'none';
-      receiptContainer.style.margin = '0';
-      receiptContainer.style.padding = '20px';
-      
-      const thermalReceipt = receiptContainer.querySelector('.thermal-receipt') as HTMLElement;
-      if (thermalReceipt) {
-        thermalReceipt.style.transform = 'none';
-        thermalReceipt.style.padding = '20px';
-        thermalReceipt.style.width = '100%';
-        thermalReceipt.style.maxWidth = '600px';
-        thermalReceipt.style.margin = '0 auto';
-        thermalReceipt.style.display = 'block';
-      }
-    }
-    
-    // Print after styling is applied
-    setTimeout(() => {
-      window.print();
-    }, 100);
+  // ตรวจ iOS Safari (เพื่อให้แคป Full Page ได้)
+  const isIOSSafari =
+    /iP(hone|od|ad)/.test(navigator.userAgent) &&
+    /WebKit/.test(navigator.userAgent) &&
+    !/CriOS|FxiOS/.test(navigator.userAgent);
+
+  const enterPrintMode = () => {
+    document.body.classList.add("print-mode");
+    try {
+      window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    } catch {}
+  };
+  const exitPrintMode = () => {
+    document.body.classList.remove("print-mode");
   };
 
-  const handleNewSearch = () => {
-    setLocation("/");
+  const handlePrint = () => {
+    enterPrintMode();
+    if (!isIOSSafari) {
+      // เดสก์ท็อป/แอนดรอยด์: เปิด dialog พิมพ์ แล้วถอดโหมดหลังพิมพ์
+      setTimeout(() => {
+        const cleanup = () => {
+          exitPrintMode();
+          window.removeEventListener("afterprint", cleanup);
+        };
+        window.addEventListener("afterprint", cleanup);
+        window.print();
+      }, 50);
+    }
+    // iPhone Safari: ไม่เรียก window.print(); ผู้ใช้กด Screenshot → Full Page ได้ทันที
   };
+
+  const handleNewSearch = () => navigate("/");
 
   if (isLoading) {
     return (
@@ -101,12 +121,14 @@ export default function ReceiptPage() {
         <Alert variant="destructive" className="mb-4">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
-            {error instanceof Error ? error.message : "ไม่พบข้อมูลใบเสร็จตามหมายเลขอ้างอิงที่ระบุ"}
+            {error instanceof Error
+              ? error.message
+              : "ไม่พบข้อมูลใบเสร็จตามหมายเลขอ้างอิงที่ระบุ"}
           </AlertDescription>
         </Alert>
-        <Button 
-          onClick={handleNewSearch} 
-          variant="outline" 
+        <Button
+          onClick={handleNewSearch}
+          variant="outline"
           className="w-full"
           data-testid="button-back-to-search"
         >
@@ -122,13 +144,11 @@ export default function ReceiptPage() {
       <div className="container mx-auto px-4 py-8 max-w-md">
         <Alert>
           <AlertCircle className="h-4 w-4" />
-          <AlertDescription>
-            ไม่พบข้อมูลใบเสร็จในระบบ
-          </AlertDescription>
+          <AlertDescription>ไม่พบข้อมูลใบเสร็จในระบบ</AlertDescription>
         </Alert>
-        <Button 
-          onClick={handleNewSearch} 
-          variant="outline" 
+        <Button
+          onClick={handleNewSearch}
+          variant="outline"
           className="w-full mt-4"
           data-testid="button-back-to-search"
         >
@@ -141,9 +161,9 @@ export default function ReceiptPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Control buttons (no-print) */}
+      {/* ปุ่มควบคุม — จะถูกซ่อนในโหมดพิมพ์/print-mode ด้วย .no-print */}
       <div className="no-print mb-6 flex justify-center space-x-4">
-        <Button 
+        <Button
           onClick={handlePrint}
           className="bg-green-600 hover:bg-green-700 text-white"
           data-testid="button-print"
@@ -151,7 +171,7 @@ export default function ReceiptPage() {
           <Printer className="w-4 h-4 mr-2" />
           พิมพ์ใบเสร็จรับเงิน
         </Button>
-        <Button 
+        <Button
           onClick={handleNewSearch}
           variant="outline"
           className="border-blue-600 text-blue-600 hover:bg-blue-50"
@@ -162,8 +182,12 @@ export default function ReceiptPage() {
         </Button>
       </div>
 
-      {/* Thermal Receipt Container */}
-      <ThermalReceipt data={receiptData} />
+      {/* โครงสร้างที่ CSS ใช้: receipt-container > thermal-receipt */}
+      <div className="receipt-container">
+        <div className="thermal-receipt">
+          <ThermalReceipt data={receiptData} />
+        </div>
+      </div>
     </div>
   );
 }

@@ -83,7 +83,8 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
           </div>
           <div className="text-center mb-1" data-testid="text-buyer-address">{info.BuyerAddress}</div>
           <div className="text-center mb-1" data-testid="text-buyer-taxid">
-            เลขประจำตัวผู้เสียภาษี: {info.BuyerTaxId} ({info.BuyerOrgType})
+            เลขประจำตัวผู้เสียภาษี: {info.BuyerTaxId} 
+            <span className="block">({info.BuyerOrgType})</span>
           </div>
         </div>
 
