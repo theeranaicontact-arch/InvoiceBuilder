@@ -167,7 +167,7 @@ export default function ThermalReceipt({ data }: ThermalReceiptProps) {
         {/* Barcode */}
         <div className="text-center mb-3">
           <PDF417Barcode 
-            data={`${info.RefCodeInfoItem}|${info.BuyerTaxId}|${totals.grandTotal}`}
+            data={`${info.RefCodeInfoItem}|${formatDate(info.CreateDate)}|${info.SellerTaxId}|${info.BuyerTaxId}|${formatCurrency(totals.subtotal)}|${formatCurrency(totals.totalWithholding)}|${formatCurrency(totals.grandTotal)}`}
             width={250}
             height={80}
           />
